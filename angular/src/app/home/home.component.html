@@ -1,0 +1,9 @@
+<p>
+  Name<br>
+  <input type="text" name="nameTxtName" [(ngModel)]="txtName" id="txtName"><br>
+  Phone<br>
+  <input type="text" name="nameTxtPhone" [(ngModel)]="txtPhone" id="txtPhone"><br>
+  <button type="button" (click)="submitData()" class="submit-btn">Submit</button>
+  <span id="spanMsg" *ngIf="spanMsg.text" [ngStyle]="{ color : spanMsg.color }" name="spanMsg">{{spanMsg.text}}</span>
+</p>
+<a routerLink="/list" routerLinkActive="active">Go to ListPage</a>
