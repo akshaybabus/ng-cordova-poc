@@ -72,6 +72,10 @@ slackSend channel: '#general', color: 'Green', message: 'Build Successful', toke
         
       }
    }
-   
+      stage('Sending Notification'){
+       steps{
+         slackSend channel: '#general', color: 'Green', message: 'Build Successful for IOS & Android', token: '5Q8vdCLU3zQquivD26pIqTal'
+       }
+   }
    }
 }
