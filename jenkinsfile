@@ -10,22 +10,10 @@ pipeline {
         {
             sh 'ls -l'        
             sh 'npm install'
+            sh 'ng build -op ../cordova/www/
         }
         
       }
    }
-   
-    stage('Angular build to cordova') {
-   steps {
-         sh 'npm run ng build -op ../cordova/www'
-     } 
-  }
-
-   stage('Android Build') {
-   steps {
-      sh 'cordova build android'
    }
-  }
-
- }
 }
