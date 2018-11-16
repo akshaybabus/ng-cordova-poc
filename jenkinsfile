@@ -17,7 +17,7 @@ pipeline {
    
     stage('Angular build to cordova') {
    steps {
-         sh 'npm ng build -op ../cordova/www'
+         sh 'npm run ng build -op ../cordova/www'
      } 
   }
 
