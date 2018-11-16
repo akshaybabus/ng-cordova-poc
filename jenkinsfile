@@ -4,7 +4,29 @@ pipeline {
          PATH='/usr/local/bin:/usr/bin:/bin'
       }
    stages {
-      stage('Build Angular to Cordova dir') {
+      
+    
+    stage('Jasmine testing') {
+      steps {
+        dir('angular')
+        {
+            sh 'ng test --watch=false'
+        }
+        
+      }
+    }
+    
+    stage('Protractor testing') {
+      steps {
+        dir('angular')
+        {
+            sh 'ng e2e'
+        }
+        
+      }
+    }
+    
+    stage('Build Angular to Cordova dir') {
       steps {
         dir('angular')
         {
@@ -15,6 +37,7 @@ pipeline {
         
       }
     }
+    
     stage('Build Android app') {
       steps {
         dir('cordova')
@@ -36,5 +59,6 @@ pipeline {
         
       }
    }
+   
    }
 }
