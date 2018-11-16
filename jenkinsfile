@@ -6,7 +6,9 @@ pipeline {
    stages {
       stage('NPM Setup') {
       steps {
+        sh 'ls -l'
         sh 'cd angular'
+        sh 'ls -l'
         sh 'npm install'
       }
    }
