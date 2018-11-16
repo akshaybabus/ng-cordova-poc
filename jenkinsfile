@@ -1,0 +1,31 @@
+pipeline {
+   agent any
+      environment {
+         PATH='/usr/local/bin:/usr/bin:/bin'
+      }
+   stages {
+      stage('NPM Setup') {
+      steps {
+        dir('angular')
+        {
+            sh 'ls -l'        
+            sh 'npm install'
+        }
+        
+      }
+   }
+   
+    stage('Angular build to cordova') {
+   steps {
+      sh 'ng build -op ${env.WORKSPACE}/cordova/www/'
+     } 
+  }
+
+   stage('Android Build') {
+   steps {
+      sh 'cordova build android'
+   }
+  }
+
+ }
+}
