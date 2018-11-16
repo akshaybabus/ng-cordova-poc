@@ -4,13 +4,34 @@ pipeline {
          PATH='/usr/local/bin:/usr/bin:/bin'
       }
    stages {
-      stage('NPM Setup') {
+      stage('Build Angular to Cordova dir') {
       steps {
         dir('angular')
         {
             sh 'ls -l'        
             sh 'npm install'
             sh 'ng build -op ../cordova/www/'
+        }
+        
+      }
+    }
+    stage('Build Android app') {
+      steps {
+        dir('cordova')
+        {
+            sh 'if [ ! -d "platforms/android" ]; then cordova platform add android; fi'
+            sh 'cordova build android'
+        }
+        
+      }
+   }
+   
+   stage('Build iOS app') {
+      steps {
+        dir('cordova')
+        {
+            sh 'if [ ! -d "platforms/ios" ]; then cordova platform add ios; fi'
+            sh 'cordova build ios'
         }
         
       }
