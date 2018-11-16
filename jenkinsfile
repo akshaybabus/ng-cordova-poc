@@ -58,7 +58,6 @@ pipeline {
   ]
 ], debugMode: false, failGracefully: false,baseUrlHolder: [baseUrl: 'https://rink.hockeyapp.net']
 
-slackSend channel: '#general', color: 'Green', message: 'Build Successful', token: '5Q8vdCLU3zQquivD26pIqTal'
        }
    }
    
