@@ -10,5 +10,18 @@ pipeline {
         sh 'npm install'
       }
    }
+   
+    stage('Angular build to cordova') {
+   steps {
+      sh 'ng build -op ../cordova/www/'
+     } 
+  }
+
+   stage('Android Build') {
+   steps {
+      sh 'cordova build android'
+   }
+  }
+
  }
 }
