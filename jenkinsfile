@@ -4,7 +4,7 @@ pipeline {
          PATH='/usr/local/bin:/usr/bin:/bin'
       }
    stages {
-    stage('Jasmine testing') {
+    stage('Running Unit test') {
       steps {
         dir('angular')
         {
@@ -14,7 +14,7 @@ pipeline {
       }
     }
     
-    stage('Protractor testing') {
+    stage('Running UI test') {
       steps {
         dir('angular')
         {
@@ -24,7 +24,7 @@ pipeline {
       }
     }
     
-    stage('Build Angular to Cordova dir') {
+    stage('Copying files to Cordova') {
       steps {
         dir('angular')
         {
@@ -36,7 +36,7 @@ pipeline {
       }
     }
     
-    stage('Build Android app') {
+    stage('Generating APK for Android') {
       steps {
         dir('cordova')
         {
@@ -46,7 +46,7 @@ pipeline {
         
       }
    }
-   stage('Publish Android App to Hockey'){
+   stage('Publishing Android App to Hockey'){
        steps{
            hockeyApp applications: [
   [
@@ -61,7 +61,7 @@ pipeline {
        }
    }
    
-   stage('Build iOS app') {
+   stage('Generating ipa for IOS') {
       steps {
         dir('cordova')
         {
@@ -71,7 +71,7 @@ pipeline {
         
       }
    }
-      stage('Sending Notification'){
+      stage('Sending Status to Slack'){
        steps{
          slackSend channel: '#general', color: 'Green', message: 'Build Successful for IOS & Android', token: '5Q8vdCLU3zQquivD26pIqTal'
        }
