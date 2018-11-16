@@ -4,28 +4,61 @@ pipeline {
          PATH='/usr/local/bin:/usr/bin:/bin'
       }
    stages {
-      stage('NPM Setup') {
+      
+    
+    stage('Jasmine testing') {
+      steps {
+        dir('angular')
+        {
+            sh 'ng test --watch=false'
+        }
+        
+      }
+    }
+    
+    stage('Protractor testing') {
+      steps {
+        dir('angular')
+        {
+            sh 'ng e2e'
+        }
+        
+      }
+    }
+    
+    stage('Build Angular to Cordova dir') {
       steps {
         dir('angular')
         {
             sh 'ls -l'        
             sh 'npm install'
+            sh 'ng build -op ../cordova/www/'
+        }
+        
+      }
+    }
+    
+    stage('Build Android app') {
+      steps {
+        dir('cordova')
+        {
+            sh 'if [ ! -d "platforms/android" ]; then cordova platform add android; fi'
+            sh 'cordova build android'
         }
         
       }
    }
    
-    stage('Angular build to cordova') {
-   steps {
-      sh 'ng build -op ${env.WORKSPACE}/cordova/www/'
-     } 
-  }
-
-   stage('Android Build') {
-   steps {
-      sh 'cordova build android'
+   stage('Build iOS app') {
+      steps {
+        dir('cordova')
+        {
+            sh 'if [ ! -d "platforms/ios" ]; then cordova platform add ios; fi'
+            sh 'cordova build ios'
+        }
+        
+      }
    }
-  }
-
- }
+   
+   }
 }
