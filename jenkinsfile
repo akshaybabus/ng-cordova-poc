@@ -4,8 +4,6 @@ pipeline {
          PATH='/usr/local/bin:/usr/bin:/bin'
       }
    stages {
-      
-    
     stage('Jasmine testing') {
       steps {
         dir('angular')
@@ -47,6 +45,21 @@ pipeline {
         }
         
       }
+   }
+   stage('Publish Android App to Hockey'){
+       steps{
+           hockeyApp applications: [
+  [
+    apiToken: '629275da84e340079c6480a606407eba',
+    downloadAllowed: true,
+    filePath: 'cordova/platforms/android/build/outputs/apk/android-debug.apk',
+    releaseNotesMethod: manual(isMarkdown: true, releaseNotes: 'Bug fixes and minor updates'),
+    uploadMethod: appCreation(false)
+  ]
+], debugMode: false, failGracefully: false,baseUrlHolder: [baseUrl: 'https://rink.hockeyapp.net']
+
+slackSend channel: '#general', color: 'Green', message: 'Build Successful', token: '5Q8vdCLU3zQquivD26pIqTal'
+       }
    }
    
    stage('Build iOS app') {
