@@ -10,7 +10,7 @@ pipeline {
         {
             sh 'ls -l'        
             sh 'npm install'
-            sh 'ng build -op ../cordova/www/
+            sh 'ng build -op ../cordova/www/'
         }
         
       }
