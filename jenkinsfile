@@ -8,6 +8,7 @@ pipeline {
       steps {
         dir('angular')
         {
+            sh 'npm install
             sh 'ng test --watch=false'
         }
         
@@ -29,7 +30,6 @@ pipeline {
         dir('angular')
         {
             sh 'ls -l'        
-            sh 'npm install'
             sh 'ng build -op ../cordova/www/'
         }
         
