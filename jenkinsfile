@@ -24,17 +24,6 @@ pipeline {
         
       }
     }
-        stage('SonarQube analysis') {
-      steps {
-        dir('angular')
-        {
-    withSonarQubeEnv('My SonarQube Server') {
-      sh "${scannerHome}/bin/sonar-scanner"
-    }
-        }
-        
-      }
-    }
     
     stage('Copying files to Cordova') {
       steps {
