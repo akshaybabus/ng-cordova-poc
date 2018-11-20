@@ -4,18 +4,6 @@ pipeline {
          PATH='/usr/local/bin:/usr/bin:/bin'
       }
    stages {
-   
-  stage('SonarQube analysis') {
-      tools {
-        sonarQube 'SonarQube Scanner 2.8'
-      }
-      steps {
-        withSonarQubeEnv('SonarQube Scanner') {
-          sh 'sonar-scanner'
-        }
-      }
-    }
-
     
     stage('Running Unit test') {
       steps {
