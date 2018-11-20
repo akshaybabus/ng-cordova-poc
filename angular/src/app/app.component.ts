@@ -10,11 +10,11 @@ export class AppComponent {
   constructor() {
     var a = NaN;
 
-    //with default rule of Sonarqube, compaing with NaN throws an error
-    if (a === NaN) {
-      console.log("a is NaN")
-    } else if (a != NaN) {
-      console.log("a is not NaN")
-    }
+//     //with default rule of Sonarqube, compaing with NaN throws an error
+//     if (a === NaN) {
+//       console.log("a is NaN")
+//     } else if (a != NaN) {
+//       console.log("a is not NaN")
+//     }
   }
 }
