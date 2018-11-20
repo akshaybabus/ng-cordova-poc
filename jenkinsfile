@@ -4,16 +4,84 @@ pipeline {
          PATH='/usr/local/bin:/usr/bin:/bin'
       }
    stages {
-      stage('NPM Setup') {
+  stage('Running Unit test') {
+      steps {
+        dir('angular')
+        {
+            sh 'npm install'
+            sh 'ng test --watch=false'
+        }
+        
+      }
+    }
+    
+    stage('Running UI test') {
+      steps {
+        dir('angular')
+        {
+            sh 'ng e2e'
+        }
+        
+      }
+    }
+        stage('SonarQube analysis') {
+      steps {
+           dir('angular')
+           {
+               sh 'npm run sonar-scanner'
+           }
+      }
+    }
+    stage('Copying files to Cordova') {
       steps {
         dir('angular')
         {
             sh 'ls -l'        
-            sh 'npm install'
             sh 'ng build -op ../cordova/www/'
         }
         
       }
+    }
+    
+    stage('Generating APK for Android') {
+      steps {
+        dir('cordova')
+        {
+            sh 'if [ ! -d "platforms/android" ]; then cordova platform add android; fi'
+            sh 'cordova build android'
+        }
+        
+      }
+   }
+   stage('Publishing Android App to Hockey'){
+       steps{
+           hockeyApp applications: [
+  [
+    apiToken: '629275da84e340079c6480a606407eba',
+    downloadAllowed: true,
+    filePath: 'cordova/platforms/android/build/outputs/apk/android-debug.apk',
+    releaseNotesMethod: manual(isMarkdown: true, releaseNotes: 'Bug fixes and minor updates'),
+    uploadMethod: appCreation(false)
+  ]
+], debugMode: false, failGracefully: false,baseUrlHolder: [baseUrl: 'https://rink.hockeyapp.net']
+
+       }
+   }
+   
+   stage('Generating ipa for IOS') {
+      steps {
+        dir('cordova')
+        {
+            sh 'if [ ! -d "platforms/ios" ]; then cordova platform add ios; fi'
+            sh 'cordova build ios'
+        }
+        
+      }
+   }
+      stage('Sending Status to Slack'){
+       steps{
+         slackSend channel: '#general', color: 'Green', message: 'Build Successful for IOS & Android', token: '5Q8vdCLU3zQquivD26pIqTal'
+       }
    }
    }
 }
