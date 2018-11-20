@@ -4,21 +4,7 @@ pipeline {
          PATH='/usr/local/bin:/usr/bin:/bin'
       }
    stages {
-    stage('SonarQube analysis') {
-      steps {
-        
-        
-           dir('angular')
-           {
-               sh 'npm install'
-               sh 'npm run sonar-scanner'
-           }
-          
-        
-      }
-    }
-    
-    stage('Running Unit test') {
+  stage('Running Unit test') {
       steps {
         dir('angular')
         {
@@ -38,7 +24,14 @@ pipeline {
         
       }
     }
-    
+        stage('SonarQube analysis') {
+      steps {
+           dir('angular')
+           {
+               sh 'npm run sonar-scanner'
+           }
+      }
+    }
     stage('Copying files to Cordova') {
       steps {
         dir('angular')
