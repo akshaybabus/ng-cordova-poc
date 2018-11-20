@@ -6,7 +6,7 @@ pipeline {
    stages {
     stage('SonarQube analysis') {
       steps {
-        withSonarQubeEnv('meralcopoc') {
+        
         
            dir('angular')
            {
@@ -14,7 +14,7 @@ pipeline {
                sh 'npm run sonar-scanner'
            }
           
-        }
+        
       }
     }
     
