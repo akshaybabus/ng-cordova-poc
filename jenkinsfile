@@ -6,7 +6,7 @@ pipeline {
    stages {
     stage('SonarQube analysis') {
       steps {
-        withSonarQubeEnv('Meralco POC') {
+        withSonarQubeEnv('meralcopoc') {
           sh 'sonar-scanner'
         }
       }
