@@ -37,10 +37,4 @@ describe('FirebaseConnectService', () => {
   it('getDataObservables retrieves all the users', async(inject( [FirebaseConnectService], ( service: FirebaseConnectService ) => {
     service.getDataObservable().subscribe(result => expect(result.length).toBeGreaterThan(0)); 
   })));
-
-  // it('pushData pushes the user data', async(inject( [FirebaseConnectService], ( service: FirebaseConnectService ) => {
-  //   spyOn(service.detailsRef, 'push');
-  //   service.pushData("Arun",234);
-  //   expect(service.detailsRef.push).toHaveBeenCalled();
-  // })));
 });

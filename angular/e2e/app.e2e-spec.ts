@@ -8,14 +8,8 @@ describe('firebase-poc App', () => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
-    // page.navigateTo();
-    // expect(page.getParagraphText()).toEqual('Welcome to app!');
-    // var name = element(by.css('input[name="nameTxtName"]'));
-      // expect(name.getAttribute("value")).toEqual("Hello");
-
+  it('should display title', () => {
       browser.get('/');
-
       expect(browser.getTitle()).toEqual('FirebaseSample');
   });
 });
